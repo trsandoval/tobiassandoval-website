@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tobias Sandoval — Philosophy, UT Austin</title>
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --color-bg: #E4E0D3;
+        --color-text: #2A2420;
+        --color-text-light: #4A423B;
+        --color-text-muted: #5F564C;
+        --color-accent: #6B3A34;
+        --color-border: #C7C0AE;
+        --color-card-bg: #D8D2C0;
+
+        /* Reading text is set in the serif; the sans is reserved for interface labels.
+           To go back to a sans body, change --font-body to var(--font-sans). */
+        --font-serif: 'Newsreader', Georgia, serif;
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-body: var(--font-serif);
+
+        --max-width: 1160px;
+        --transition: 0.3s ease;
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: var(--font-body);
+        color: var(--color-text);
+        background-color: var(--color-bg);
+        line-height: 1.65;
+        font-weight: 400;
+        font-size: 1.2rem;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; }
+    section { scroll-margin-top: 20px; }
+
+    a:focus-visible, button:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 4px;
+    }
+
+    /* ─── MASTHEAD ─── */
+    .site-header {
+        text-align: center;
+        padding: 3.6rem 2rem 2.4rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+    .hero-name {
+        font-family: var(--font-serif);
+        font-size: clamp(2.3rem, 6vw, 3.8rem);
+        font-weight: 400;
+        letter-spacing: -0.005em;
+        color: var(--color-text);
+        margin-bottom: 0.6rem;
+        line-height: 1.1;
+        white-space: nowrap;
+        animation: settle 1.7s var(--ease-out) both;
+    }
+    .hero-affil {
+        font-family: var(--font-serif);
+        font-size: 1.35rem;
+        color: var(--color-text-light);
+        margin-bottom: 1.8rem;
+        animation: fade-in 1.1s ease 0.55s both;
+    }
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem 2.1rem;
+        list-style: none;
+        animation: fade-in 1.1s ease 0.85s both;
+    }
+    .nav-links a {
+        font-family: var(--font-sans);
+        color: var(--color-text-light);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        position: relative;
+        padding-bottom: 3px;
+        transition: color var(--transition);
+    }
+    /* The rule enters from the left and leaves toward the right. */
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        left: 0; right: 0; bottom: -2px;
+        height: 1px;
+        background: var(--color-accent);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.5s var(--ease-out);
+    }
+    .nav-links a:hover { color: var(--color-text); }
+    .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+    @keyframes settle {
+        from { opacity: 0; letter-spacing: 0.05em; }
+        to   { opacity: 1; letter-spacing: -0.005em; }
+    }
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    /* ─── SECTION SCAFFOLDING ─── */
+    .section-inner { max-width: var(--max-width); margin: 0 auto; padding: 5.5rem 2.5rem; }
+    .band { background: var(--color-card-bg); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+    .section-title {
+        font-family: var(--font-serif);
+        font-size: clamp(1.9rem, 3vw, 2.4rem);
+        font-weight: 400;
+        line-height: 1.3;
+        margin-bottom: 1.1rem;
+        color: var(--color-accent);
+        overflow: hidden;
+    }
+    .section-title > span { display: inline-block; }
+    .section-divider { width: 48px; height: 1px; background: var(--color-accent); margin-bottom: 2.4rem; transform-origin: left; }
+
+    /* ─── ABOUT ─── */
+    .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--color-text-light); margin-bottom: 1.4rem; font-size: 1.22rem; text-wrap: pretty; }
+    .about-text strong { font-weight: 600; color: var(--color-text); }
+    .about-text a { color: var(--color-text); text-decoration: underline; text-decoration-color: var(--color-border); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: text-decoration-color var(--transition); }
+    .about-text a:hover { text-decoration-color: var(--color-accent); }
+    .about-image {
+        aspect-ratio: 3/4;
+        overflow: hidden;
+        border: 1px solid var(--color-border);
+        max-width: 240px;
+        margin-left: auto;
+        margin-top: -2.5rem;
+    }
+    .about-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
+
+    /* ─── PUBLICATIONS & PRESENTATIONS (shared list) ─── */
+    .pub-list { list-style: none; }
+    .pub-item {
+        position: relative;
+        isolation: isolate;
+        padding: 1.9rem 0;
+        border-bottom: 1px solid var(--color-border);
+        display: grid;
+        grid-template-columns: 7.5rem 1fr auto;
+        gap: 1.5rem;
+        align-items: baseline;
+        transition: opacity 0.45s ease;
+    }
+    .pub-item:first-child { border-top: 1px solid var(--color-border); }
+    /* A fine accent rule draws along the bottom edge of the row; nothing on the page shifts. */
+    .pub-item::after {
+        content: '';
+        position: absolute;
+        left: 0; right: 0; bottom: -1px;
+        height: 1px;
+        background: var(--color-accent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.9s var(--ease-out);
+    }
+    .pub-year { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 500; color: var(--color-accent); }
+    .pub-title { font-size: 1.32rem; line-height: 1.4; font-weight: 400; text-wrap: balance; }
+    .pub-title a { text-decoration: none; transition: color var(--transition); }
+    .pub-venue { display: block; font-size: 1.05rem; color: var(--color-text-muted); font-style: italic; margin-top: 0.3rem; }
+    .pub-link {
+        font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.01em;
+        color: var(--color-text-muted); text-decoration: none; white-space: nowrap;
+        border-bottom: 1px solid var(--color-border); transition: color var(--transition), border-color var(--transition);
+    }
+    .pub-link:hover { color: var(--color-accent); border-color: var(--color-accent); }
+
+    @media (hover: hover) {
+        .pub-item:hover::after { transform: scaleX(1); }
+        .pub-item:hover .pub-title a { color: var(--color-accent); }
+        /* While one row is hovered, its neighbours recede slightly. */
+        .pub-list:has(.pub-item:hover) .pub-item:not(:hover) { opacity: 0.6; }
+    }
+
+    .empty-note { font-style: italic; color: var(--color-text-muted); }
+
+    /* ─── RESEARCH (accordion cards, closed by default) ─── */
+    .projects-grid { display: grid; gap: 1.6rem; }
+    .project-card, .course-card {
+        position: relative;
+        border: 1px solid var(--color-border);
+        background: var(--color-card-bg);
+    }
+    .band .project-card, .band .course-card { background: var(--color-bg); }
+    /* An accent bar grows down the left edge on hover and while open. */
+    .project-card::before, .course-card::before {
+        content: '';
+        position: absolute;
+        left: -1px; top: -1px; bottom: -1px;
+        width: 3px;
+        background: var(--color-accent);
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 0.55s var(--ease-out);
+    }
+    .project-card:hover::before, .course-card:hover::before,
+    .project-card.open::before, .course-card.open::before { transform: scaleY(1); }
+
+    .project-toggle {
+        all: unset; box-sizing: border-box; cursor: pointer; width: 100%;
+        display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+        padding: 2rem 2.4rem;
+    }
+    .project-toggle:focus-visible, .course-toggle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -4px; }
+    .project-eyebrow {
+        font-family: var(--font-sans);
+        font-size: 0.88rem; font-weight: 500; letter-spacing: 0.01em;
+        color: var(--color-text-muted); margin-bottom: 0.35rem; display: block;
+    }
+    .project-toggle-title { font-family: var(--font-serif); font-size: 1.5rem; line-height: 1.3; font-weight: 400; color: var(--color-text); display: block; }
+
+    /* Plus that folds into a minus. */
+    .toggle-icon { position: relative; width: 18px; height: 18px; flex-shrink: 0; }
+    .toggle-icon::before, .toggle-icon::after {
+        content: ''; position: absolute; left: 0; top: 50%;
+        width: 100%; height: 1.5px; margin-top: -0.75px;
+        background: var(--color-accent);
+        transition: transform 0.5s var(--ease-out);
+    }
+    .toggle-icon::after { transform: rotate(90deg); }
+    .open > .project-toggle .toggle-icon::after,
+    .open > .course-toggle .toggle-icon::after { transform: rotate(0deg); }
+    .open > .project-toggle .toggle-icon::before,
+    .open > .course-toggle .toggle-icon::before { transform: rotate(180deg); }
+
+    .project-panel, .course-panel, .wip-abstract {
+        display: grid; grid-template-rows: 0fr; visibility: hidden;
+        transition: grid-template-rows 0.55s var(--ease-out), visibility 0s linear 0.55s;
+    }
+    .project-card.open .project-panel,
+    .course-card.open .course-panel,
+    .wip-row.open .wip-abstract { grid-template-rows: 1fr; visibility: visible; transition-delay: 0s; }
+    .project-panel-inner, .course-panel-inner, .wip-abstract-inner { overflow: hidden; min-height: 0; }
+
+    .project-panel-content, .course-panel-content, .wip-abstract-inner > p { opacity: 0; transition: opacity 0.25s ease; }
+    .project-card.open .project-panel-content,
+    .course-card.open .course-panel-content,
+    .wip-row.open .wip-abstract-inner > p { opacity: 1; transition: opacity 0.6s ease 0.2s; }
+
+    .project-panel-content { padding: 0 2.4rem 2.4rem; }
+    .project-panel-content > p { font-size: 1.15rem; color: var(--color-text-light); margin-bottom: 1rem; max-width: 46rem; text-wrap: pretty; }
+    .subsection-title {
+        font-family: var(--font-serif); font-size: 1.3rem; font-weight: 500; font-style: italic;
+        margin-top: 2rem; margin-bottom: 0.9rem; color: var(--color-accent);
+    }
+    .wip-list { list-style: none; }
+    .wip-row { border-bottom: 1px solid var(--color-border); padding: 1rem 0; }
+    .wip-row:last-child { border-bottom: none; }
+    .wip-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; }
+    .wip-head p { font-size: 1.15rem; color: var(--color-text-light); }
+    .wip-tag {
+        font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.01em;
+        color: var(--color-accent); margin-left: 0.6rem; padding: 0.1rem 0.55rem;
+        border: 1px solid var(--color-accent); border-radius: 999px; white-space: nowrap; vertical-align: 0.1em;
+    }
+    .read-more-btn {
+        all: unset; cursor: pointer; flex-shrink: 0;
+        font-family: var(--font-sans); font-size: 0.88rem; font-weight: 500; letter-spacing: 0.01em;
+        color: var(--color-text-muted); border-bottom: 1px solid var(--color-border);
+        transition: color var(--transition), border-color var(--transition);
+    }
+    .read-more-btn:hover { color: var(--color-accent); border-color: var(--color-accent); }
+    .read-more-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+    .wip-abstract-inner > p {
+        font-size: 1.12rem; color: var(--color-text-light); margin-top: 0.9rem;
+        max-width: 46rem; text-align: left; hyphens: manual; text-wrap: pretty;
+    }
+    .wip-placeholder { font-style: italic; color: var(--color-text-muted); }
+
+    .tab-pub-list { list-style: none; margin-top: 0.5rem; }
+    .tab-pub-list .pub-item { grid-template-columns: 5rem 1fr; }
+
+    /* ─── TEACHING (accordion cards, closed by default) ─── */
+    .teaching-intro p { font-size: 1.2rem; color: var(--color-text-light); max-width: 46rem; margin-bottom: 1.1rem; text-wrap: pretty; }
+    .teaching-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; margin-bottom: 0.5rem; }
+    .course-toggle {
+        all: unset; box-sizing: border-box; cursor: pointer; width: 100%;
+        display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        padding: 1.6rem 1.8rem;
+    }
+    .course-code { font-family: var(--font-sans); font-size: 0.88rem; font-weight: 500; letter-spacing: 0.01em; color: var(--color-accent); margin-bottom: 0.35rem; display: block; }
+    .course-toggle-title { font-family: var(--font-serif); font-size: 1.2rem; line-height: 1.3; font-weight: 400; color: var(--color-text); display: block; }
+    .course-panel-content { padding: 0 1.8rem 1.8rem; }
+    .syllabus-link {
+        display: inline-block; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.01em;
+        color: var(--color-text-muted); text-decoration: none;
+        border-bottom: 1px solid var(--color-border);
+        transition: color var(--transition), border-color var(--transition);
+    }
+    .syllabus-link:hover { color: var(--color-accent); border-color: var(--color-accent); }
+
+    /* ─── CV ─── */
+    .cv-head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem 2rem; }
+    .cv-download {
+        display: inline-flex; align-items: center; margin-top: 0.3rem;
+        padding: 0.8rem 1.9rem; border: 1px solid var(--color-text); color: var(--color-text);
+        text-decoration: none; font-family: var(--font-sans); font-size: 0.95rem; font-weight: 500; letter-spacing: 0.01em;
+        background: linear-gradient(var(--color-text), var(--color-text)) left bottom / 100% 0 no-repeat;
+        transition: background-size 0.5s var(--ease-out), color 0.5s var(--ease-out);
+    }
+    .cv-download:hover { background-size: 100% 100%; color: var(--color-bg); }
+
+    .cv-sheet { background: var(--color-card-bg); border: 1px solid var(--color-border); padding: 2.6rem 3rem; }
+    .band .cv-sheet { background: var(--color-bg); }
+    .cv-group { display: grid; grid-template-columns: 11rem 1fr; gap: 1rem 2.5rem; padding: 2.2rem 0; border-top: 1px solid var(--color-border); }
+    .cv-group:first-child { border-top: none; padding-top: 0; }
+    .cv-group:last-child { padding-bottom: 0; }
+    .cv-group-title { font-family: var(--font-serif); font-size: 1.45rem; font-weight: 500; color: var(--color-accent); line-height: 1.3; }
+    .cv-rows { display: grid; gap: 1.6rem; }
+    .cv-row { display: grid; grid-template-columns: 11.5rem 1fr; gap: 0.3rem 2rem; align-items: baseline; }
+    .cv-date { font-family: var(--font-sans); font-size: 0.95rem; font-weight: 500; color: var(--color-text-muted); font-variant-numeric: tabular-nums; line-height: 1.5; }
+    .cv-date-sub { display: block; font-weight: 400; font-size: 0.85rem; }
+    .cv-title { font-size: 1.28rem; font-weight: 500; line-height: 1.35; }
+    .cv-org { font-size: 1.12rem; color: var(--color-text-light); font-style: italic; }
+    .cv-list { list-style: none; }
+    .cv-list li { font-size: 1.22rem; line-height: 1.5; padding: 0.1rem 0; }
+
+    /* ─── CONTACT ─── */
+    .contact { text-align: center; }
+    .contact .section-divider { margin-left: auto; margin-right: auto; transform-origin: center; }
+    .contact-email {
+        font-family: var(--font-serif); font-size: clamp(1.5rem, 3vw, 2.3rem);
+        color: var(--color-text); text-decoration: none; display: inline-block; margin: 0.6rem 0 1.8rem;
+        padding-bottom: 2px;
+        border-bottom: 1px solid var(--color-border);
+        background: linear-gradient(var(--color-accent), var(--color-accent)) left bottom / 0 1px no-repeat;
+        transition: background-size 0.7s var(--ease-out);
+    }
+    .contact-email:hover { background-size: 100% 1px; }
+    .social-links { display: flex; gap: 1.8rem; justify-content: center; }
+    .social-links a { font-family: var(--font-sans); color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; letter-spacing: 0.01em; border-bottom: 1px solid var(--color-border); transition: color var(--transition), border-color var(--transition); }
+    .social-links a:hover { color: var(--color-accent); border-color: var(--color-accent); }
+    .contact-note { margin-top: 1.6rem; font-size: 1.1rem; font-style: italic; color: var(--color-text-muted); }
+
+    footer { padding: 2.2rem; text-align: center; font-family: var(--font-sans); font-size: 0.85rem; color: var(--color-text-muted); border-top: 1px solid var(--color-border); }
+
+    /* ─── SCROLL REVEAL ───
+       The title rises out of a mask, the rule draws itself, then the content fades in.
+       Hidden states only apply when JavaScript is running (the .js class). */
+    .js .reveal .section-title > span { transform: translateY(115%); transition: transform 1s var(--ease-out); }
+    .js .reveal .section-divider { transform: scaleX(0); transition: transform 1.1s var(--ease-out) 0.25s; }
+    .js .reveal .section-body { opacity: 0; transition: opacity 1s ease 0.45s; }
+    .js .reveal.visible .section-title > span { transform: none; }
+    .js .reveal.visible .section-divider { transform: scaleX(1); }
+    .js .reveal.visible .section-body { opacity: 1; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+        .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+        .about-image { max-width: 220px; margin-top: 0; margin-left: 0; }
+        .teaching-grid { grid-template-columns: 1fr; }
+        .pub-item, .tab-pub-list .pub-item { grid-template-columns: 1fr; gap: 0.35rem; }
+        .cv-group { grid-template-columns: 1fr; gap: 1.2rem; }
+        .cv-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+        body { font-size: 1.15rem; }
+        .section-inner { padding: 4rem 1.5rem; }
+        .project-toggle { padding: 1.6rem 1.6rem; }
+        .project-panel-content { padding: 0 1.6rem 1.8rem; }
+        .cv-sheet { padding: 1.8rem 1.5rem; }
+        .wip-head { flex-direction: column; gap: 0.6rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-delay: 0s !important;
+            transition-duration: 0.01ms !important;
+            transition-delay: 0s !important;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header class="site-header" id="top">
+    <h1 class="hero-name">Tobias Sandoval</h1>
+    <div class="hero-affil">University of Texas at Austin</div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#presentations">Presentations</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#teaching">Teaching</a></li>
+        <li><a href="#cv">CV</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</header>
+
+<section id="about" class="band">
+    <div class="section-inner reveal">
+        <h2 class="section-title"><span>About Me</span></h2>
+        <div class="section-divider"></div>
+        <div class="about-grid section-body">
+            <div class="about-text">
+                <p>Hi! My name is Tobias (or Toby), and I am a PhD candidate in Philosophy at the
+                <a href="https://liberalarts.utexas.edu/philosophy/" target="_blank" rel="noopener">University of Texas at Austin</a>.
+                Before coming to UT, I studied Philosophy and Music at UC Berkeley.</p>
+                <p>My primary research interests lie at the intersection of the philosophy of mind,
+                philosophy of psychology, and philosophy of science. I additionally
+                have strong interests in the history of early modern philosophy. The thread that
+                binds my contemporary and historical research is <strong>classification and taxonomy</strong> in
+                the mind-brain sciences.</p>
+                <p>Outside of Philosophy, I am an avid theater enthusiast, recreational
+                playwright, and tennis player.</p>
+            </div>
+            <div class="about-image">
+                <img src="toby-photo-new.jpg" alt="Tobias Sandoval">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="publications">
+    <div class="section-inner reveal">
+        <h2 class="section-title"><span>Publications</span></h2>
+        <div class="section-divider"></div>
+        <ul class="pub-list section-body">
+            <li class="pub-item">
+                <span class="pub-year">2025</span>
+                <div>
+                    <div class="pub-title"><a href="https://www-tandfonline-com.ezproxy.lib.utexas.edu/doi/full/10.1080/09608788.2025.2472643" target="_blank" rel="noopener">Going through the Motions: Memory and Remembrance in Cavendish</a></div>
+                    <span class="pub-venue">British Journal for the History of Philosophy, 33(5), 1120–1142</span>
+                </div>
+                <a class="pub-link" href="https://www-tandfonline-com.ezproxy.lib.utexas.edu/doi/full/10.1080/09608788.2025.2472643" target="_blank" rel="noopener">View</a>
+            </li>
+            <!-- Add further entries here, following the same pub-item structure. -->
+        </ul>
+    </div>
+</section>
+
+<section id="presentations" class="band">
+    <div class="section-inner reveal">
+        <h2 class="section-title"><span>Upcoming Presentations</span></h2>
+        <div class="section-divider"></div>
+        <ul class="pub-list section-body">
+            <!-- Add further talks by copying an entry, soonest first.
+                 To link a talk to a program page or abstract, add:
+                 <a class="pub-link" href="URL" target="_blank" rel="noopener">Details</a> -->
+            <li class="pub-item">
+                <span class="pub-year">Nov. 2026</span>
+                <div>
+                    <div class="pub-title">Background Conditions and Emotional Kinds</div>
+                    <span class="pub-venue">4th Annual Web Conference of the International Society for the Philosophy of the Sciences of the Mind (ISPSM), Online</span>
+                </div>
+            </li>
+            <li class="pub-item">
+                <span class="pub-year">Feb. 2027</span>
+                <div>
+                    <div class="pub-title">‘What is natural is a constant Habit or Custome’: Cavendish on habits and procedural memory</div>
+                    <span class="pub-venue">Society for the Study of Early Modern Women and Gender (SSEMWG) program at Central APA, Denver, CO</span>
+                </div>
+            </li>
+        </ul>
+        <!-- When you have nothing scheduled, delete the <ul> above and use this instead:
+        <p class="empty-note section-body">No presentations are scheduled at the moment. Please check back soon.</p>
+        -->
+    </div>
+</section>
+
+<section id="research">
+    <div class="section-inner reveal">
+        <h2 class="section-title"><span>Research</span></h2>
+        <div class="section-divider"></div>
+
+        <div class="projects-grid section-body">
+            <div class="project-card">
+                <button class="project-toggle" aria-expanded="false">
+                    <span>
+                        <span class="project-eyebrow">I — Contemporary</span>
+                        <span class="project-toggle-title">Classification in the Mind-Brain Sciences</span>
+                    </span>
+                    <span class="toggle-icon" aria-hidden="true"></span>
+                </button>
+                <div class="project-panel">
+                    <div class="project-panel-inner">
+                        <div class="project-panel-content">
+                            <p>One goal of scientific inquiry is delineating between real kinds that are
+                            grounded in the world and permit of scientifically valuable generalizations,
+                            predictions, projections, and explanations and merely nominal or arbitrary
+                            categories. In psychology, cognitive science, and psychiatry, this project has
+                            been seen as particularly difficult, as many of the categories we employ are
+                            largely heterogenous, context sensitive, and socially malleable. Much of my
+                            current research attempts to reconcile these two facts.</p>
+                            <p>Recently, I have been interested in how background conditions account for a
+                            wide range of variability in putative real kinds such as water, beryllium,
+                            tuberculosis, and E. coli and how these facts can be extended to account for the
+                            variability in psychological categories without threatening their status as
+                            real kinds.</p>
+
+                            <div class="subsection-title">Works in Progress</div>
+                            <ul class="wip-list">
+                                <li class="wip-row">
+                                    <div class="wip-head">
+                                        <p>A paper on the role of background conditions on the variability of emotional kinds<span class="wip-tag">Under Review</span></p>
+                                        <button class="read-more-btn" aria-expanded="false">Read Abstract</button>
+                                    </div>
+                                    <div class="wip-abstract"><div class="wip-abstract-inner"><p>Philosophers and psychologists have raised concerns about the scientific use of
+                                    emotion categories on the basis that they are too variable, heterogeneous, and
+                                    context sensitive. In other words, variability appears to discount the status of
+                                    emotion categories as real kinds with genuine scientific utility. In this paper,
+                                    I will argue that the problem of emotional variability is insufficient to reject
+                                    the existence of emotions that are real kinds. To do so, I show that emotional
+                                    variability can be characterized similarly to variability in other scientific
+                                    domains, whereby background conditions work in conjunction with a stable set of
+                                    core properties to cause particular derivative properties. I characterize a
+                                    notion of background condition with respect to real kinds, show how background
+                                    conditions function across domains of chemistry, biology, and medical science,
+                                    and employ this notion to argue that no relevant difference exists between
+                                    emotional variability and variability in paradigmatic real kinds. More broadly,
+                                    since background conditions have been relatively neglected in the literature on
+                                    real kinds, this paper aims to serve as a starting point for further research on
+                                    the relationship between real kinds and background conditions.</p></div></div>
+                                </li>
+                                <li class="wip-row">
+                                    <div class="wip-head">
+                                        <p>A paper about cascading kinds in psychiatry</p>
+                                        <button class="read-more-btn" aria-expanded="false">Read Abstract</button>
+                                    </div>
+                                    <div class="wip-abstract"><div class="wip-abstract-inner"><p>Philosophers of psychiatry have recently been advocating for an etiological approach
+                                    to psychiatric classification, or one that identifies real psychiatric kinds. The
+                                    standard view claims that psychiatric kinds are mechanistic property cluster (MPC)
+                                    kinds, or clusters of properties (such as signs and symptoms) that reliably co-occur
+                                    due to underlying causal mechanisms. Here, I will argue that we ought to expand our
+                                    notion of psychiatric kinds beyond MPC kinds since causal mechanisms are not apt for
+                                    characterizing all psychiatric kinds. Instead, I will introduce a cascading account
+                                    of some psychiatric kinds, following Lauren Ross’ recent work on distinguishing
+                                    between mechanisms and cascades. Using panic disorder as a case study, I show that
+                                    some psychiatric kinds are recurring cascade kinds, or kinds that initiate with an
+                                    onset cascade, sustain via a maintenance state, and periodically re-intensify through
+                                    subsequent, flaring cascades. I then discuss upshots a cascade view of psychiatric
+                                    kinds provides.</p></div></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <button class="project-toggle" aria-expanded="false">
+                    <span>
+                        <span class="project-eyebrow">II — Historical</span>
+                        <span class="project-toggle-title">"Mental Geography" in Early Modern Philosophy</span>
+                    </span>
+                    <span class="toggle-icon" aria-hidden="true"></span>
+                </button>
+                <div class="project-panel">
+                    <div class="project-panel-inner">
+                        <div class="project-panel-content">
+                            <p>Even before Hume coined the term "mental geography," which he claimed was
+                            the "delineation of the distinct parts and powers of the mind" (EHU, 1.13),
+                            philosophers in the Early Modern period (and earlier) were interested in
+                            taxonomizing the mind into a variety of faculties and parts. For this reason, a
+                            large chunk of my research traces the historical movement of this
+                            classificatory project, focusing primarily on figures in Early Modern
+                            Philosophy. At the moment, I am particularly interested in Margaret Cavendish's
+                            work on this subject.</p>
+
+                            <div class="subsection-title">Publications</div>
+                            <ul class="pub-list tab-pub-list">
+                                <li class="pub-item">
+                                    <span class="pub-year">2025</span>
+                                    <div>
+                                        <div class="pub-title"><a href="https://www-tandfonline-com.ezproxy.lib.utexas.edu/doi/full/10.1080/09608788.2025.2472643" target="_blank" rel="noopener">Going through the Motions: Memory and Remembrance in Cavendish</a></div>
+                                        <span class="pub-venue">British Journal for the History of Philosophy, 33(5), 1120–1142</span>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div class="subsection-title">Works in Progress</div>
+                            <ul class="wip-list">
+                                <li class="wip-row">
+                                    <div class="wip-head">
+                                        <p>A paper on Cavendish's views of custom, habit, and self-knowledge</p>
+                                        <button class="read-more-btn" aria-expanded="false">Read Abstract</button>
+                                    </div>
+                                    <div class="wip-abstract"><div class="wip-abstract-inner">
+                                        <p>Margaret Cavendish defines 'remembrance', or remembering, as a voluntary
+                                        repetition of a past motion. In a recent paper, I (Sandoval, 2025) argue that
+                                        Cavendishian remembrances take a representational and nonrepresentational form.
+                                        Representational remembrances occur when an animal creature voluntarily repeats
+                                        past mental representations that were originally stored in memory via rational
+                                        matter in sense perception and conception. These remembrances account for our
+                                        contemporary notion of declarative memory, or the remembering of past experiences
+                                        and facts. However, he additionally argues that Cavendish allows for remembrances
+                                        that are nonrepresentational and not grounded in any storage of memories.
+                                        Examples of nonrepresentational remembrance include repeated motions performed by
+                                        custom or habit in a creature such as respirating, circulating, digesting,
+                                        photosynthesis, etc., all of which stem directly from what Cavendish calls the
+                                        creature's "self-knowledge" rather than stored memories. This appears to leave
+                                        Cavendish with a very broad and undemanding account of remembrance. That is, in
+                                        what sense should we understand the claim that circulation and digestion are
+                                        kinds of remembrance?</p>
+                                        <p>In this paper, I bridge the gap between representational and
+                                        nonrepresentational remembrance in Cavendish. First, I develop an understanding
+                                        of nonrepresentational remembrance as Cavendish's version of procedural memory,
+                                        which not only encompasses actions such as riding a bike and typing on a keyboard
+                                        but also actions such as respiration, circulation, photosynthesis, etc. A
+                                        creature's customs and habits are learned through the process of memory (storage)
+                                        and consistent remembrance (recall). I then connect this account to the growing
+                                        literature on Cavendish's notion of creaturely self-knowledge. Cavendish claims
+                                        that all creatures have a 'fixt' self-knowledge that is responsible for the
+                                        creature's knowing how to perform actions that are natural for it. Theorists
+                                        debate about how to understand this self-knowledge and, particularly, how
+                                        creatures know which actions are natural. Using my account of procedural memory
+                                        in Cavendish, I argue that often times creatures do not start with this knowledge
+                                        but arrive at it through the process of learning via memory and remembrance.
+                                        This explains Cavendish's claim that "what is natural is a constant Habit or
+                                        Custome" as well as her insistence that what distinguishes things in nature are
+                                        their customs and habits.</p>
+                                    </div></div>
+                                </li>
+                                <li class="wip-row">
+                                    <div class="wip-head">
+                                        <p>A paper connecting Cavendish's broad view of memory and contemporary work on unconventional memory systems</p>
+                                        <button class="read-more-btn" aria-expanded="false">Read Abstract</button>
+                                    </div>
+                                    <div class="wip-abstract"><div class="wip-abstract-inner">
+                                        <p>In contemporary memory literature, philosophers and psychologists often argue
+                                        that instances of our immune system reacting more efficiently to antigens it has
+                                        previously encountered do not count as real memory. Two arguments against immune
+                                        memory as real memory Colaço (2025) calls the "mere causal argument" and the
+                                        "error argument." The mere causal argument claims that, while complete
+                                        explanations of instances of conventional memory (e.g. episodic memory) require
+                                        appeal to mental representations, instances of immune memory can be explained in
+                                        causal terms alone. The error argument claims that, because immune memory can be
+                                        explained without appeal to representations, it cannot be said to make errors
+                                        similar to those exemplified in conventional memory.</p>
+                                        <p>In this paper, I use these contemporary arguments against immune memory as
+                                        genuine memory to develop and motivate analogous arguments against Cavendish's
+                                        seemingly undemanding account of remembrance. I then consider ways in which
+                                        Cavendish might successfully respond to these challenges using her views on
+                                        occasional causation, disorder, mental representation, and creaturely
+                                        self-knowledge. In doing so, I believe we arrive at a clearer idea about what
+                                        remembrance is for Cavendish.</p>
+                                    </div></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="teaching" class="band">
+    <div class="section-inner reveal">
+        <h2 class="section-title"><span>Teaching</span></h2>
+        <div class="section-divider"></div>
+
+        <div class="section-body">
+            <div class="teaching-intro">
+                <p>At UT, I have designed and taught undergraduate courses in technology ethics and the
+                philosophy of religion. I am very interested in teaching additional courses in those topics
+                as well as introductory survey courses and introductory logic. I am also interested in
+                teaching Philosophy of Mind, Philosophy of Science, and Early Modern Philosophy, at the
+                upper-division and graduate levels.</p>
+                <p>Below are syllabi for the courses I have taught as well as sample syllabi for courses I am
+                prepared to teach.</p>
+            </div>
+            <div class="subsection-title">Courses Taught</div>
+            <div class="teaching-grid">
+                <div class="course-card">
+                    <button class="course-toggle" aria-expanded="false">
+                        <span>
+                            <span class="course-code">Lower-Division Undergraduate · Fall 2026</span>
+                            <span class="course-toggle-title">Introduction to Philosophy of Religion</span>
+                        </span>
+                        <span class="toggle-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="course-panel">
+                        <div class="course-panel-inner">
+                            <div class="course-panel-content">
+                                <a href="#" class="syllabus-link">Syllabus</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <button class="course-toggle" aria-expanded="false">
+                        <span>
+                            <span class="course-code">Lower-Division Undergraduate · Fall 2025</span>
+                            <span class="course-toggle-title">Technology Ethics</span>
+                        </span>
+                        <span class="toggle-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="course-panel">
+                        <div class="course-panel-inner">
+                            <div class="course-panel-content">
+                                <a href="#" class="syllabus-link">Syllabus</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection-title">Courses Prepared to Teach</div>
+            <div class="teaching-grid">
+                <div class="course-card">
+                    <button class="course-toggle" aria-expanded="false">
+                        <span>
+                            <span class="course-code">Upper-Division Undergraduate</span>
+                            <span class="course-toggle-title">Early Modern Philosophy</span>
+                        </span>
+                        <span class="toggle-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="course-panel">
+                        <div class="course-panel-inner">
+                            <div class="course-panel-content">
+                                <a href="#" class="syllabus-link">Sample Syllabus</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <button class="course-toggle" aria-expanded="false">
+                        <span>
+                            <span class="course-code">Graduate Course</span>
+                            <span class="course-toggle-title">Natural Kinds and Scientific Classification</span>
+                        </span>
+                        <span class="toggle-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="course-panel">
+                        <div class="course-panel-inner">
+                            <div class="course-panel-content">
+                                <a href="#" class="syllabus-link">Sample Syllabus</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="cv">
+    <div class="section-inner reveal">
+        <div class="cv-head">
+            <div>
+                <h2 class="section-title"><span>CV</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="section-body"><a href="Tobias_Sandoval_CV.pdf" target="_blank" class="cv-download">Download Full CV</a></div>
+        </div>
+
+        <div class="cv-sheet section-body">
+            <div class="cv-group">
+                <h3 class="cv-group-title">Education</h3>
+                <div class="cv-rows">
+                    <div class="cv-row">
+                        <div class="cv-date">2022 – 2027 (Expected)</div>
+                        <div>
+                            <div class="cv-title">PhD in Philosophy</div>
+                            <div class="cv-org">The University of Texas at Austin</div>
+                        </div>
+                    </div>
+                    <div class="cv-row">
+                        <div class="cv-date">2020</div>
+                        <div>
+                            <div class="cv-title">BA in Philosophy, Minor in Music</div>
+                            <div class="cv-org">University of California, Berkeley</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cv-group">
+                <h3 class="cv-group-title">Research</h3>
+                <div class="cv-rows">
+                    <div class="cv-row">
+                        <div class="cv-date">AOS<span class="cv-date-sub">Areas of Specialization</span></div>
+                        <ul class="cv-list">
+                            <li>Philosophy of Mind</li>
+                            <li>Philosophy of Psychology</li>
+                            <li>Philosophy of Science</li>
+                        </ul>
+                    </div>
+                    <div class="cv-row">
+                        <div class="cv-date">AOC<span class="cv-date-sub">Areas of Competence</span></div>
+                        <ul class="cv-list">
+                            <li>History of Early Modern Philosophy</li>
+                            <li>Philosophy of Psychiatry</li>
+                            <li>Technology Ethics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="band">
+    <div class="section-inner contact reveal">
+        <h2 class="section-title"><span>Contact</span></h2>
+        <div class="section-divider"></div>
+        <div class="section-body">
+            <a href="mailto:tobias.sandoval@utexas.edu" class="contact-email">tobias.sandoval@utexas.edu</a>
+            <div class="social-links">
+                <a href="https://liberalarts.utexas.edu/philosophy/gradstudents/ts39896" target="_blank" rel="noopener">Department</a>
+                <a href="https://philpeople.org/profiles/tobias-sandoval" target="_blank" rel="noopener">PhilPeople</a>
+            </div>
+            <p class="contact-note">Please feel free to get in touch with me!</p>
+        </div>
+    </div>
+</section>
+
+<footer>© 2026 Tobias Sandoval. All rights reserved.</footer>
+
+<script>
+    // Abstract toggles
+    document.querySelectorAll('.read-more-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const row = btn.closest('.wip-row');
+            const isOpen = row.classList.toggle('open');
+            btn.setAttribute('aria-expanded', isOpen);
+            btn.textContent = isOpen ? 'Hide Abstract' : 'Read Abstract';
+        });
+    });
+
+    // Research and teaching accordions
+    document.querySelectorAll('.project-toggle, .course-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const card = btn.closest('.project-card, .course-card');
+            const isOpen = card.classList.toggle('open');
+            btn.setAttribute('aria-expanded', isOpen);
+        });
+    });
+
+    // Section reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => observer.observe(el));
+    } else {
+        revealEls.forEach(el => el.classList.add('visible'));
+    }
+</script>
+</body>
+</html>
